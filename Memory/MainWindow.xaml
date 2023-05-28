@@ -1,0 +1,177 @@
+﻿<Window x:Class="Memory.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Memory"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Background="{DynamicResource backgroundImage}" FontFamily="Georgia">
+    <Window.Resources>
+
+        <ImageSource x:Key="imgSource">./Images/background.jpg</ImageSource>
+        <ImageBrush x:Key="backgroundImage" ImageSource="{DynamicResource imgSource}" Opacity="0.95"></ImageBrush>
+
+    </Window.Resources>
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="3.5*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        
+        <TextBlock Grid.Row="0"  VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="45" RenderTransformOrigin="0.518,1.52" Margin="0,10,0,0">
+            Memory
+        </TextBlock>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <DataGrid Name="players" Grid.Row="0" Margin="15" ItemsSource="{Binding Players}" AutoGenerateColumns="False" BorderBrush="SaddleBrown"
+                          BorderThickness="1.5" Background="#bab1a0" RowBackground="#d6cfc1"
+                          SelectionChanged="players_SelectionChanged" CanUserAddRows="False" CanUserResizeRows="False" 
+                          CanUserDeleteRows="False" HeadersVisibility="Column">
+                    <DataGrid.Columns>
+                        
+                        <DataGridTextColumn Width="1*" Header="  Users" Binding="{Binding Username}">
+                            <DataGridColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="Background" Value="#73674e"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="FontSize" Value="22"/>
+                                    <Setter Property="FontFamily" Value="Georgia"></Setter>
+                                    <Setter Property="Padding" Value="1"></Setter>
+                                </Style>
+                            </DataGridColumn.HeaderStyle>
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5*"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Name="username" Visibility="Hidden" Background="#d6cfc1" VerticalContentAlignment="Center" Grid.Column="0" Margin="10"></TextBox>
+                    <Button Name="submit" Visibility="Hidden" Grid.Column="1" Margin="10" Background="#bd9988"
+                            FontFamily="Georgia"  Click="submit_Click" Content="Submit">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="7"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </Grid>
+            </Grid>
+                        
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Border BorderThickness="1.5" BorderBrush="SaddleBrown" VerticalAlignment="Center" HorizontalAlignment="Center"
+                        Margin="20,10">
+                <Image Name="Avatar" Grid.Row="0" Source="./Avatars/image1.jpg"></Image>
+                </Border>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Border BorderThickness="1.2" BorderBrush="SaddleBrown" Margin="20" CornerRadius="8">
+                        <Button Name="back" Background="BurlyWood" Grid.Column="0" Content="Previous image" Foreground="#421c17"
+                                FontFamily="Georgia" 
+                                Click="previous_Click">
+                            <Button.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="7"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </Border>
+                    <Border BorderThickness="1.2" BorderBrush="SaddleBrown" Margin="20" Grid.Column="1" CornerRadius="8">
+                        <Button Name="next" Background="BurlyWood" Content="Next image" FontFamily="Georgia" Foreground="#421c17"  Click="next_Click">
+                            <Button.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="7"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </Border>
+                </Grid>
+            </Grid>  
+            
+        </Grid>
+        
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Grid.IsSharedSizeScope="True" Margin="30,10">
+            <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition SharedSizeGroup="MySizeGroup"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                <Button Name="newUser" Content="New user" Background="#bd9988" Grid.Column="0" Padding="5" Margin="50,10" Click="newUser_Click">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="10"/>
+                            <Setter Property="BorderThickness" Value="1.2"></Setter>
+                            <Setter Property="BorderBrush" Value="SaddleBrown"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition SharedSizeGroup="MySizeGroup"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                <Button Name="delete" Content="Delete user" Background="#bd9988"  Grid.Column="1" Padding="5" Margin="50,10" Click="delete_Click">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="10"/>
+                            <Setter Property="BorderThickness" Value="1.2"></Setter>
+                            <Setter Property="BorderBrush" Value="SaddleBrown"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="MySizeGroup"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button Name="play" Content="Play" Background="#bd9988"  Grid.Column="2" Padding="5" Margin="50,10" Click="play_Click">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="10"/>
+                            <Setter Property="BorderThickness" Value="1.2"></Setter>
+                            <Setter Property="BorderBrush" Value="SaddleBrown"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="MySizeGroup"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button Name="exit" Content="Exit" Background="#bd9988"  Grid.Column="3" Padding="5" Margin="50,10" Click="exit_Click" >
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="10"/>
+                            <Setter Property="BorderThickness" Value="1.2"></Setter>
+                            <Setter Property="BorderBrush" Value="SaddleBrown"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>
